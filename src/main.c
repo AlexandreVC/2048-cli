@@ -19,9 +19,9 @@ char *targetDir(char *env, char *path)
     char *dir;
     char *dirEnv;
     dirEnv = getenv(env);
-    dir = malloc(strlen_s(dirEnv) + strlen_s(path) + 1);
-    strcpy_s(dir, dirEnv);
-    strcat_s(dir,path);
+    dir = malloc(strlen(dirEnv) + strlen(path) + 1);
+    strcpy(dir, dirEnv);
+    strcat(dir,path);
     return dir;
 }
 
