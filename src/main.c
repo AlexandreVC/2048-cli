@@ -14,14 +14,32 @@ void draw_then_sleep(struct gfx_state *s, struct gamestate *g)
     gfx_sleep(160 / g->opts->grid_width);
 }
 
-char *targetDir(char *env, char *path)
-{
-    char *dir;
-    char *dirEnv;
-    dirEnv = getenv(env);
-    dir = malloc(strlen(dirEnv) + strlen(path) + 1);
-    strcpy(dir, dirEnv);
-    strcat(dir,path);
+char *targetDir(const char *env, const char *path) {
+    if (env == NULL || path == NULL) {
+        // Gérer l'erreur si l'une des entrées est NULL
+        fprintf(stderr, "Error: Input environment variable or path is NULL.\n");
+        return NULL;
+    }
+
+    const char *dirEnv = getenv(env);
+    if (dirEnv == NULL) {
+        // Gérer l'erreur si getenv retourne NULL
+        fprintf(stderr, "Error: Environment variable %s does not exist.\n", env);
+        return NULL;
+    }
+
+    // +1 pour le caractère nul de fin de chaîne et potentiellement un autre pour le séparateur de dossier
+    size_t size = strlen(dirEnv) + strlen(path) + 2;
+    char *dir = malloc(size);
+    if (dir == NULL) {
+        // Gérer l'échec de malloc
+        perror("Error allocating memory");
+        return NULL;
+    }
+
+    // Construire le chemin en s'assurant de ne pas déborder du tampon
+    snprintf(dir, size, "%s/%s", dirEnv, path);
+    
     return dir;
 }
 
