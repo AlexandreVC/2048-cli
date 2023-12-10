@@ -34,8 +34,11 @@ static const char* highscore_retrieve_file(void)
     char *sep = strrchr(buffer, '/');
     while (sep != NULL) {
         *sep = '\0';
-        if (strlen(buffer) != 0)
-            mkdir(buffer, 0777);
+        if (mkdir(buffer, 0700) != 0) {
+            // Si mkdir échoue parce que le répertoire existe déjà
+            if (errno != EEXIST) {
+            // Gérer l'erreur si elle n'est pas liée à l'existence du répertoire
+        }
         char *tmpsep = sep;
         sep = strrchr(buffer, '/');
         *tmpsep = '/';
