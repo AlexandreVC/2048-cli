@@ -34,7 +34,7 @@ static const char* highscore_retrieve_file(void)
     char *sep = strrchr(buffer, '/');
     while (sep != NULL) {
         *sep = '\0';
-        if (strlen(buffer)!=0)
+        if (strlen_s(buffer)!=0)
             mkdir(buffer,0777);
         char *tmpsep = sep;
         sep = strrchr(buffer, '/');
