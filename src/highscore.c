@@ -64,7 +64,7 @@ void highscore_reset(void)
 
         string_to_lower(resp);
 
-        const size_t sl = strlen(resp);
+        const size_t sl = strlen_s(resp);
         if (sl < resp_length)
             resp[sl - 1] = '\0';
 
