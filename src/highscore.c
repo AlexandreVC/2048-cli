@@ -27,21 +27,38 @@ static const char* highscore_retrieve_file(void)
         return hs_file_name;
     }
 
-    /* Create file only if it doesn't exist */
-    if (access(buffer, F_OK) != -1)
-        return buffer;
-
-    char *sep = strrchr(buffer, '/');
-    while (sep != NULL) {
-        *sep = '\0';
-        if (strnlen(buffer, sizeof(buffer)) != 0)
-            mkdir(buffer,S_IRWXU | S_IRWXG);
-        char *tmpsep = sep;
-        sep = strrchr(buffer, '/');
-        *tmpsep = '/';
+   char *sep = strrchr(buffer, '/');
+while (sep != NULL) {
+    *sep = '\0';
+    if (strnlen(buffer, sizeof(buffer)) != 0) {
+        // Essayez de créer le répertoire
+        if (mkdir(buffer, S_IRWXU | S_IRWXG) == -1) {
+            // Gérez l'erreur si le répertoire ne peut pas être créé
+            if (errno != EEXIST) {
+                // Gestion des erreurs si le répertoire n'existe pas déjà
+                return NULL;
+            }
+        }
     }
+    char *tmpsep = sep;
+    sep = strrchr(buffer, '/');
+    *tmpsep = '/';
+}
 
-    return buffer;
+// Effectuez maintenant les opérations sur le fichier
+FILE *fd = fopen(buffer, "r");
+if (!fd) {
+    fd = fopen(buffer, "w+");
+    if (!fd) {
+        // Gestion des erreurs si le fichier ne peut pas être ouvert ou créé
+        return NULL;
+    }
+}
+// Fermez le fichier si vous l'avez juste ouvert pour le créer
+fclose(fd);
+
+return buffer;
+
 }
 
 static inline void string_to_lower(char *str)
