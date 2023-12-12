@@ -27,34 +27,21 @@ static const char* highscore_retrieve_file(void)
         return hs_file_name;
     }
 
-/* Create file only if it doesn't exist */
+    /* Create file only if it doesn't exist */
     if (access(buffer, F_OK) != -1)
         return buffer;
 
     char *sep = strrchr(buffer, '/');
     while (sep != NULL) {
         *sep = '\0';
-        if (strnlen(buffer, sizeof(buffer)) != 0)
-            mkdir(buffer, S_IRWXU | S_IRWXG);
+        if (strlen(buffer) != 0)
+            mkdir(buffer, 0777);
         char *tmpsep = sep;
         sep = strrchr(buffer, '/');
         *tmpsep = '/';
     }
 
-// Effectuez maintenant les opérations sur le fichier
-FILE *fd = fopen(buffer, "r");
-if (!fd) {
-    fd = fopen(buffer, "w+");
-    if (!fd) {
-        // Gestion des erreurs si le fichier ne peut pas être ouvert ou créé
-        return NULL;
-    }
-}
-// Fermez le fichier si vous l'avez juste ouvert pour le créer
-fclose(fd);
-
-return buffer;
-
+    return buffer;
 }
 
 static inline void string_to_lower(char *str)
@@ -77,7 +64,7 @@ void highscore_reset(void)
 
         string_to_lower(resp);
 
-        const size_t sl = strnlen(resp, resp_length);
+        const size_t sl = strlen(resp);
         if (sl < resp_length)
             resp[sl - 1] = '\0';
 
