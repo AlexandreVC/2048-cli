@@ -27,13 +27,12 @@ char *targetDir(char *env, char *path)
 */
 int main(int argc, char **argv)
 {
-    // La fonction targetdir décalée ici
-    char *dir;	
+    // La fonction targetdir décalée ici	
     char *dirEnv;
     char *env = "PWD";
     char *path = "/18n/";
     dirEnv = getenv(env);
-    dir = malloc(strlen(dirEnv) + strlen(path) + 1);
+    char *dir = malloc(strlen(dirEnv) + strlen(path) + 1);
     strcpy(dir, dirEnv);
     strcat(dir,path);
     setlocale (LC_ALL, "");
