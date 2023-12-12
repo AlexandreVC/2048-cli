@@ -34,7 +34,7 @@ static const char* highscore_retrieve_file(void)
     char *sep = strrchr(buffer, '/');
     while (sep != NULL) {
         *sep = '\0';
-        if (strlen(buffer) != 0)
+        if (strnlen(buffer, sizeof(buffer)) != 0)
             mkdir(buffer, 0777);
         char *tmpsep = sep;
         sep = strrchr(buffer, '/');
@@ -64,7 +64,7 @@ void highscore_reset(void)
 
         string_to_lower(resp);
 
-        const size_t sl = strlen(resp);
+        const size_t sl = strnlen(resp, resp_length);
         if (sl < resp_length)
             resp[sl - 1] = '\0';
 
