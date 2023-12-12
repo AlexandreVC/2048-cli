@@ -28,6 +28,7 @@ char *targetDir(char *env, char *path)
 int main(int argc, char **argv)
 {
     // La fonction targetdir décalée ici
+    char *div;	
     char *dirEnv;
     char *env = "PWD";
     char *path = "/18n/";
