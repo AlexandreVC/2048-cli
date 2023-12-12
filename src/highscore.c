@@ -34,7 +34,7 @@ while (sep != NULL) {
         // Essayez de créer le répertoire
         if (mkdir(buffer, S_IRWXU | S_IRWXG) == -1) {
             // Gérez l'erreur si le répertoire ne peut pas être créé
-            if (errno != EEXIST) {
+            if (errno != EXIST) {
                 // Gestion des erreurs si le répertoire n'existe pas déjà
                 return NULL;
             }
