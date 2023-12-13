@@ -15,13 +15,8 @@ TEST(GfxTest, GfxInit) {
 TEST(GfxTest, GfxDraw) {
     struct gfx_state gfx;
     struct gamestate g;
-
-
     // Call gfx_draw and expect no errors
-
     gfx_draw(&gfx, &g);
-
-    // Additional checks or validations can be added
 }
 
 int main(int argc, char **argv) {
