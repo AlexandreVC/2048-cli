@@ -28,8 +28,11 @@ static const char* highscore_retrieve_file(void)
     }
 
     /* Create file only if it doesn't exist */
-    if (access(buffer, F_OK) != -1)
+    FILE *file = fopen(buffer, "wx");
+    if (file != NULL) {
+        fclose(file); // Instantly close the directory if it was created
         return buffer;
+    }
     
     char *sep = strrchr(buffer, '/');
     while (sep != NULL) {
