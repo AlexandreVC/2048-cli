@@ -31,7 +31,6 @@ TEST(OptionsTest, ParseOptions) {
     EXPECT_EQ(parsed_opts->grid_height, 4);
     EXPECT_EQ(parsed_opts->grid_width, 4);
 
-    // Additional checks can be added based on the actual implementation
 }
 
 int main(int argc, char **argv) {
