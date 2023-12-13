@@ -8,8 +8,8 @@ TEST(GameEngineTest, InitialState) {
     // Initialize opts with appropriate values if needed
     // For example, if opts has grid_width and grid_height, initialize them
 
-    g.opts->grid_width = 4;
-    g.opts->grid_height = 4;
+    g->opts->grid_width = 4;
+    g->opts->grid_height = 4;
 
     // Initialize the grid to zero
     for (int i = 0; i < 4; i++) {
