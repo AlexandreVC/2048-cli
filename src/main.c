@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     char *env = "PWD";
     char *path = "/18n/";
     dirEnv = getenv(env);
-    char *dir = malloc(strlen(dirEnv) + strlen(path) + 1);
+    char *dir = malloc(strnlen(dirEnv, sizeof(dirEnv)) + strnlen(path, sizeof(path)) + 1);
     strcpy(dir, dirEnv);
     strcat(dir,path);
     setlocale (LC_ALL, "");
